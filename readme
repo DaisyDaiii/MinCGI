@@ -1,0 +1,26 @@
+***Part one: config function***
+    1.This function is used for reading configuration files, get the staticfiles, cgibin, port and exec values.
+    2.If there is no parameter for this file or cannot find the file or the some variables are missing in the file,
+      it will show error messages and exist.
+
+***Part two: connect function***
+    1.This function is used for setting a server socket and accepting connections.
+    2.After accepting the data, it will decode the data and parse it, check if it is static file request or cgi request
+    3.It will fork new process for each data accept from client.
+
+***Part three: get_handler function***
+    1.This function is used for retrieve static files.
+    2.It will check the content-tye for the resource in request using type function.
+    3.If the file path exist, it will send correct status code and the content of the file
+    4.If the file path do not exist, it will send File not found status code and the content of error html which is
+      stored in the file_error_html function.
+
+***Part four: cgi_handler function***
+    1.This function is used for cgi request.
+    2.Set environment variables using environment_variable function.
+    3.The child process will execute the file and redirect the content to parent process.
+
+***Part five: extension***
+    1.I choose gzip for extension
+    2.If the request had the gzip in "Accept-Encoding" headers, then the server will send compressed packets to client
+    3.Compress function is used for compressing data.
